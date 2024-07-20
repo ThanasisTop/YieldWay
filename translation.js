@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				mission:'Mission',
 				vision:'Vision',
 				hours:'9.00 am - 9.00 pm',
-				aboutus2:'We Help Our Clients To Grow Their Business'
+				aboutus2:'We Help Our Clients To Grow Their Business',
+				address:'Xrysopigi 10, Serres'
             },
             gr: {
 				home: 'Αρχική',
@@ -52,7 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				mission:'Αποστολή',
 				vision:'Όραμα',
 				hours:'9.00 πμ - 9.00 μμ',
-				aboutus2:'Βοηθάμε τους πελάτες μας να αναπτύξουν την επιχείρησή τους'
+				aboutus2:'Βοηθάμε τους πελάτες μας να αναπτύξουν την επιχείρησή τους',
+				address:'Χρυσοπηγή 10, Σέρρες'
             },
             
             // Add more translations as needed
