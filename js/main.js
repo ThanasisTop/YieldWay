@@ -50,9 +50,27 @@
 
     // Facts counter
     $('[data-toggle="counter-up"]').counterUp({
-        delay: 10,
+        delay: 50,
         time: 2000
     });
+	
+	$('[data-toggle="counter-up-percent"]').counterUp({
+        delay: 50,
+        time: 2000,
+		formatter: function(n) {
+            return n + '%';
+        }
+    });
+	
+	$('[data-toggle="counter-up-profit"]').counterUp({
+        delay: 50,
+        time: 2000,
+		formatter: function(n) {
+            return n + 'M';
+        }
+    });
+	
+
 
 
     // Project carousel
