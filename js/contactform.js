@@ -44,8 +44,8 @@ function submitForm(isFromContact) {
 	
 	//Sent e-mail
 	const mailPromise = new Promise(function(myResolve, myReject){
-		//setTimeout(function(){myReject(new Error('send mail failed'));}, "3000"); //mail failed
-		setTimeout(function(){myResolve();}, "2000"); //mail success
+		setTimeout(function(){myReject();}, "2000"); //mail failed
+		//setTimeout(function(){myResolve();}, "2000"); //mail success
 	});
 	
 	mailPromise.then(
@@ -54,6 +54,7 @@ function submitForm(isFromContact) {
 			},
 		function(error){
 			document.getElementById("sendButton").innerHTML ='<p><i class="fa fa-times" aria-hidden="true" style="color:red"></i> Η αποστολή απέτυχε...</p>';
+			alert('Η αποστολή απέτυχε...');
 		}
 	);
 }
