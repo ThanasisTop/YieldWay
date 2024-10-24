@@ -23,6 +23,14 @@
     z-index: 99;
 }
 
+.gradient-text {
+  background: linear-gradient(0deg, #532681, #355EFC); /* Gradient colors */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
 .call-button {
     position: fixed;
     display: none;
