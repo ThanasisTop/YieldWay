@@ -402,7 +402,7 @@
                                     <p><i class="fa fa-check text-primary me-3"></i>Εμείς αναλύουμε τα δεδομένα σου και εντοπίζουμε τις ακριβείς αιτίες, προτείνοντας εξατομικευμένες λύσεις.</p>
                                     <!--<p><i class="fa fa-check text-primary me-3"></i>Credit Facilities</p>
                                     <p><i class="fa fa-check text-primary me-3"></i>Cash Advanced</p>-->
-                                     <a href="service.html" class="btn btn-link"><u>Περισσότερα</u></a> 
+                                     <a href="service.html#statisticsAnalysis" class="btn btn-link"><u>Περισσότερα</u></a> 
                                 </div>
                             </div>
                         </div>
@@ -420,7 +420,7 @@
                                     <p><i class="fa fa-check text-primary me-3"></i>Ανέθεσέ μας όλη τη διαδικασία και εμείς θα φροντίσουμε για την επιτυχή υλοποίησή του.</p>
                                     <!-- <p><i class="fa fa-check text-primary me-3"></i>Credit Facilities</p>
                                     <p><i class="fa fa-check text-primary me-3"></i>Cash Advanced</p>-->
-                                     <a href="service.html" class="btn btn-link"><u>Περισσότερα</u></a>
+                                     <a href="service.html#projectManagement" class="btn btn-link"><u>Περισσότερα</u></a>
                                 </div>
                             </div>
                         </div>
@@ -438,7 +438,7 @@
                                     <p><i class="fa fa-check text-primary me-3"></i>Εμείς θα αξιολογήσουμε την κατάστασή σου και θα σου προτείνουμε τις απαραίτητες βελτιώσεις.</p>
                                     <!--<p><i class="fa fa-check text-primary me-3"></i>Credit Facilities</p>
                                     <p><i class="fa fa-check text-primary me-3"></i>Cash Advanced</p>-->
-                                     <a href="service.html" class="btn btn-link"><u>Περισσότερα</u></a>
+                                     <a href="service.html#onlineDistribution" class="btn btn-link"><u>Περισσότερα</u></a>
                                 </div>
                             </div>
                         </div>
@@ -456,7 +456,7 @@
                                     <p><i class="fa fa-check text-primary me-3"></i>Εμείς θα αναλύσουμε την αγορά και θα σου προτείνουμε την ιδανική τιμολογιακή πολιτική για να μεγιστοποιήσεις τα κέρδη σου.</p>
                                     <!--<p><i class="fa fa-check text-primary me-3"></i>Credit Facilities</p>
                                     <p><i class="fa fa-check text-primary me-3"></i>Cash Advanced</p>-->
-                                     <a href="service.html" class="btn btn-link"><u>Περισσότερα</u></a>
+                                     <a href="service.html#pricingStrategy" class="btn btn-link"><u>Περισσότερα</u></a>
                                 </div>
                             </div>
                         </div>
@@ -474,7 +474,7 @@
                                     <p><i class="fa fa-check text-primary me-3"></i>Εμείς θα σε κρατάμε ενημερωμένο για τις τελευταίες τάσεις και τις εξελίξεις στην αγορά, ώστε να αξιοποιήσεις κάθε ευκαιρία.</p>
                                     <!--<p><i class="fa fa-check text-primary me-3"></i>Credit Facilities</p>
                                     <p><i class="fa fa-check text-primary me-3"></i>Cash Advanced</p>-->
-                                     <a href="service.html" class="btn btn-link"><u>Περισσότερα</u></a>
+                                     <a href="service.html#salesAssessment" class="btn btn-link"><u>Περισσότερα</u></a>
                                 </div>
                             </div>
                         </div>
@@ -804,6 +804,17 @@
 	<script src="translation.js"></script>
 	<script src="js/constants.js"></script>
 	<script src="https://smtpjs.com/v3/smtp.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			const targetDiv = document.getElementById("targetDiv");
+			
+			// Check if targetDiv exists and is in the URL hash
+			if (targetDiv && window.location.hash === "#targetDiv") {
+			// Smooth scroll to the target div
+			targetDiv.scrollIntoView({ behavior: "smooth" });
+			}
+		});
+	</script>
 	
 </body>
 
