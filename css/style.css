@@ -23,6 +23,8 @@
     z-index: 99;
 }
 
+
+
 .gradient-text {
   background: linear-gradient(0deg, #532681, #355EFC); /* Gradient colors */
   -webkit-background-clip: text;
@@ -482,8 +484,8 @@ h6,
 
 .testimonial-carousel .owl-item img {
     margin: 0 auto;
-    width: 100px;
-    height: 100px;
+    width: 220px;
+    height: 220px;
 }
 
 .testimonial-carousel .owl-dots {

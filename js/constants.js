@@ -7,8 +7,8 @@ $(document).ready(function() {
   ];
   
   const SocialLinks = [
-    { key: "facebook", value: "https://www.facebook.com/" },
-    { key: "instagram", value: "https://www.instagram.com" },
+    { key: "facebook", value: "https://www.facebook.com/profile.php?id=61567904312909" },
+    { key: "instagram", value: "https://www.instagram.com/yieldway.gr/" },
     { key: "linkedIn", value: "https://www.linkedIn.com" }
   ];
 
