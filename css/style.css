@@ -499,9 +499,9 @@ h6,
     position: relative;
     display: inline-block;
     margin: 0 5px;
-    width: 30px;
-    height: 30px;
-    border: 1px solid var(--light);
+    width: 15px;
+    height: 15px;
+    /**border: 1px solid var(--light);**/
     border-radius: 30px;
     transition: .5s;
 }
@@ -509,10 +509,10 @@ h6,
 .testimonial-carousel .owl-dot::after {
     position: absolute;
     content: "";
-    width: 16px;
-    height: 16px;
-    top: 6px;
-    left: 6px;
+    width: 8px;
+    height: 8px;
+    top: 9px;
+    left: 9px;
     border-radius: 16px;
     background: var(--light);
     transition: .5s;
