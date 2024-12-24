@@ -6,6 +6,13 @@ function submitForm(isFromContact) {
 	
 	let subject;
 	let messagebody;
+	var recaptchaResponse = grecaptcha.getResponse();
+	
+	
+	if (recaptchaResponse.length === 0) {
+      event.preventDefault();
+      return alert('Please verify you are not a robot.');
+    }
 	
 	if(isFromContact){
 		name=document.getElementById('name').value;
