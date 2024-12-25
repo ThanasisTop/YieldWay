@@ -151,7 +151,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                                    <input type="email" class="form-control" name="email" id="mail" placeholder="Email" required>
                                     <label for="mail">Email</label>
                                 </div>
                             </div>
@@ -291,10 +291,10 @@
                 // Collect form data
                 const formData = {
                     name: $('#name').val(),
-                    email: $('#email').val(),
+                    email: $('#mail').val(),
                     message: $('#message').val()
                 };
-
+				console.log(formData,'formData')
                 // AJAX request
                 $.ajax({
                     url: 'sendmail.php',
