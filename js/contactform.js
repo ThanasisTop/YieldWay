@@ -32,7 +32,7 @@ function submitForm(isFromContact) {
 		
 		
 	var mail={
-				SecureToken : "43cceee3-438f-431d-81f7-2164dbd107ff",
+				SecureToken : "",
 				To : "info@yieldway.gr",
 				From : "info@yieldway.gr",
 				Subject : subject,
