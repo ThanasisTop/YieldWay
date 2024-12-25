@@ -228,7 +228,7 @@
                 <div class="col-lg-4 col-md-6">
                     <h4 class="text-white mb-4">Newsletter</h4>
                     <p>Μείνετε ενημερωμένοι με τα τελευταία νέα μας - εγγραφείτε στο newsletter μας!</p>
-					<form onsubmit="submitForm(false); return false;">
+					<form id="newsletter">
 						<div class="position-relative w-100" id="newsLetterSection">
 							<input class="form-control bg-white border-0 w-100 py-3 ps-4 pe-5" type="email" id="newsLetterMail"
 								placeholder="Email">
@@ -283,49 +283,7 @@
 	<!--<script src="translation.js"></script>-->
 	<script src="js/constants.js"></script>
 	<script src="https://smtpjs.com/v3/smtp.js"></script>
-	<script>
-        $(document).ready(function () {
-            $('#contactForm').on('submit', function (e) {
-                e.preventDefault(); // Prevent default form submission
-                
-                
-				var isFromContact=($('#subject').val()=="Επικοινωνία" ? true : false)
-				var section=(isFromContact ? "sendButton":"newsLetterSection");	
-				
-				// Collect form data
-                const formData = {
-                    name: $('#name').val(),
-                    email: $('#mail').val(),
-                    message: $('#message').val(),
-					subject: $('#subject').val(),
-					isFromContact: isFromContact
-                };
-				
-				document.getElementById(section).innerHTML ='<div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;"></div>';
-				
-                // AJAX request
-                $.ajax({
-                    url: 'sendmail.php',
-                    type: 'POST',
-                    data: formData,
-                    dataType: 'json',
-                    success: function (response) {
-						console.log(response)
-                        if (response.success) {
-                            document.getElementById(section).innerHTML ='<p><i class="fa fa-check" aria-hidden="true" style="color:green"></i> Η αποστολή ήταν επιτυχής!</p>';
-                        } else {
-							console.log(response)
-                            document.getElementById("sendButton").innerHTML ='<p><i class="fa fa-times" aria-hidden="true" style="color:red"></i> Η αποστολή απέτυχε...</p>';
-                        }
-                    },
-                    error: function (error) {
-						console.log(error)
-                        document.getElementById("sendButton").innerHTML ='<p><i class="fa fa-times" aria-hidden="true" style="color:red"></i> Η αποστολή απέτυχε...</p>';
-                    }
-                });
-            });
-        });
-    </script>
+	<script src="js/sendmail.js"></script>
 </body>
 
 </html>
