@@ -1,34 +1,70 @@
 <?php
 header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Input validation
-    $name = htmlspecialchars($_POST['name']);
-    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $message = htmlspecialchars($_POST['message']);
+    
+	// Input validation
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $message = trim($_POST['message']);
+    $subject = trim($_POST['subject']);
+	$isFromContact = isset($_POST['isFromContact']) ? trim($_POST['isFromContact']) : 'false'; // Default to 'false'
+	
+	if($isFromContact)
+		// Sanitize and validate inputs
+		$name = preg_replace("/[^\w\s\.-]/", "", $name); // Allow alphanumeric, spaces, dots, and hyphens
+		$email = filter_var($email, FILTER_VALIDATE_EMAIL); // Validate email
+		$message = htmlspecialchars($message); // Escape HTML entities
+		$message = str_replace(["\r", "\n"], " ", $message); // Remove newlines to prevent injection
 
-    if (!$email || empty($name) || empty($message)) {
-        http_response_code(400);
-        echo json_encode(["error" => "Invalid input."]);
-        exit;
-    }
+
+		if (!$email || empty($name) || empty($message)|| empty($subject)) {
+			http_response_code(400);
+			echo json_encode(["error" => "Invalid input."]);
+			exit;
+		}
+	}
+	else{
+		$email = filter_var($email, FILTER_VALIDATE_EMAIL); 
+		if (!$email || empty($subject)) {
+			http_response_code(400);
+			echo json_encode(["error" => "Invalid input."]);
+			exit;
+		}
+	}
 
     // Elastic Email API URL
     $url = "https://api.elasticemail.com/v2/email/send";
 
     // API key (secure this in an environment variable)
     $apiKey = "78546589768CE6389A9D861C5C9F09FD397C1DB96D4003AA5732523CA5C3E3C116D85AB2CCF43D7FE84185145930769F";
-
-    // Email data
-    $postData = [
-        'apikey' => $apiKey,
-        'from' => "sakis530@hotmail.com",
-        'fromName' => "Your Name",
-        'to' => "sakis530@hotmail.com",
-        'subject' => "Contact Form Message",
-        'bodyText' => "Name: $name\nMessage: $message",
-        'bodyHtml' => "<p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
-        'isTransactional' => true,
-    ];
+	
+	if($isFromContact)
+		// Email data
+		$postData = [
+			'apikey' => $apiKey,
+			'from' => "nfo@yieldway.gr",
+			'fromName' => $name,
+			'to' => "nfo@yieldway.gr",
+			'subject' => $subject,
+			'bodyText' => "Name: $name\nMessage: $message",
+			'bodyHtml' => "<p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
+			'isTransactional' => true,
+		];
+	}
+	else{
+		// Email data
+		$postData = [
+			'apikey' => $apiKey,
+			'from' => "nfo@yieldway.gr",
+			'fromName' => $name,
+			'to' => "nfo@yieldway.gr",
+			'subject' => $subject,
+			'bodyText' => "Email: $email",
+			'bodyHtml' => "<p><strong>New newsletter:</strong> $email</p>",
+			'isTransactional' => true,
+		];
+	}
+    
 
     // Send request to Elastic Email
     $ch = curl_init();
@@ -48,16 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo json_encode(["success" => false, "error" => $responseData['error']]);
     }
-
-    // if ($response == 200) {
-		// if ($responseData['success'] === true) {
-			// echo "Success: Email sent successfully.";
-		// } 
-		// else
-			// echo "Success request but response was: $response";
-    // } else {
-        // echo "Error: HTTP $httpCode. Response: $response";
-    // }
 } else {
     echo json_encode(["success" => false, "error" => "Invalid request method."]);
 }

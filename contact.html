@@ -288,15 +288,19 @@
             $('#contactForm').on('submit', function (e) {
                 e.preventDefault(); // Prevent default form submission
                 
-                // Collect form data
+                
+				var isFromContact=(formData.subject=="Επικοινωνία" ? true : false)
+				var section=(isFromContact ? "sendButton":"newsLetterSection");	
+				
+				// Collect form data
                 const formData = {
                     name: $('#name').val(),
                     email: $('#mail').val(),
                     message: $('#message').val(),
-					subject: $('#subject').val()
+					subject: $('#subject').val(),
+					isFromContact: isFromContact
                 };
-				var isFromContact=(formData.subject=="Επικοινωνία" ? true : false)
-				var section=(isFromContact ? "sendButton":"newsLetterSection");	
+				
 				document.getElementById(section).innerHTML ='<div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;"></div>';
 				
                 // AJAX request
