@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Validate email
     $message = htmlspecialchars($message); // Escape HTML entities
     $message = str_replace(["\r", "\n"], " ", $message); // Remove newlines to prevent injection
-	$subject = preg_replace("/[^\w\s\.-]/", "", $subject); // Sanitize subject
+	//$subject = preg_replace("/[^\w\s\.-]/", "", $subject); // Sanitize subject
 
 	// API key (secure this in an environment variable)
     $apiKey = "78546589768CE6389A9D861C5C9F09FD397C1DB96D4003AA5732523CA5C3E3C116D85AB2CCF43D7FE84185145930769F";	
