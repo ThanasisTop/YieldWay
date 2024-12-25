@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'to' => "info@yieldway.gr",
         'subject' => $subject,
         'bodyText' => "Name: $name\nMessage: $message",
-        'bodyHtml' => "<p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
+        'bodyHtml' => "<p><strong>Email:</strong> $email</p><p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
         'isTransactional' => true,
     ];
 
