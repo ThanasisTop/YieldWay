@@ -139,7 +139,7 @@
                     <!-- <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form -->
                         <!-- with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're -->
                         <!-- done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p> -->
-                    <form class="row g-3" action="https://yieldway.gr/sendmail.php" method="POST">
+                    <form class="row g-3" id="contactForm">
                             <div class="col-sm-6">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" name="name" id="name" placeholder="Όνομα" required>
@@ -151,7 +151,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" name="email" id="mail" placeholder="Email" required>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                                     <label for="mail">Email</label>
                                 </div>
                             </div>
@@ -282,9 +282,41 @@
     <script src="js/contactform.js"></script>
 	<!--<script src="translation.js"></script>-->
 	<script src="js/constants.js"></script>
-	<script src="https://smtpjs.com/v3/smtp.js">
-</script>
-	
+	<script src="https://smtpjs.com/v3/smtp.js"></script>
+	<script>
+        $(document).ready(function () {
+            $('#contactForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent default form submission
+                
+                // Collect form data
+                const formData = {
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    message: $('#message').val()
+                };
+
+                // AJAX request
+                $.ajax({
+                    url: 'sendmail.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+						console.log(response)
+                        if (response.success) {
+                            $('#responseMessage').html('<p style="color: green;">Email sent successfully!</p>');
+                        } else {
+                            $('#responseMessage').html('<p style="color: red;">Error: ' + response.error + '</p>');
+                        }
+                    },
+                    error: function (error) {
+						console.log(error)
+                        $('#responseMessage').html('<p style="color: red;">An unexpected error occurred. Please try again later.</p>');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

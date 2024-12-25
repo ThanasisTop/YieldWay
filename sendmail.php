@@ -40,14 +40,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
+	$responseData = json_decode($response, true);
 
-    if ($httpCode == 200) {
-        echo "Success: $response";
+    if ($responseData['success'] === true) {
+        echo json_encode(["success" => true]);
     } else {
-        echo "Error: HTTP $httpCode. Response: $response";
+        echo json_encode(["success" => false, "error" => $responseData['error']]);
     }
+
+    // if ($response == 200) {
+		// if ($responseData['success'] === true) {
+			// echo "Success: Email sent successfully.";
+		// } 
+		// else
+			// echo "Success request but response was: $response";
+    // } else {
+        // echo "Error: HTTP $httpCode. Response: $response";
+    // }
 } else {
-    http_response_code(405); // Method not allowed
-    echo json_encode(["error" => "Invalid request method."]);
+    echo json_encode(["success" => false, "error" => "Invalid request method."]);
 }
 ?>
