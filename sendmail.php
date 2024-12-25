@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $message = trim($_POST['message']);
 	$subject = trim($_POST['subject']);
-	$isFromContact = isset($_POST['isFromContact']); // Default to 'false'
+	$isFromContact = filter_var($email, FILTER_VALIDATE_BOOLEAN); 
 
     // Sanitize and validate inputs
     $name = preg_replace("/[^\w\s\.-]/", "", $name); // Allow alphanumeric, spaces, dots, and hyphens
