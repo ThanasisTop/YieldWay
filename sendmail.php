@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if($isFromContact){
 		if (!$email || empty($name) || empty($message)|| empty($subject)) {
 			http_response_code(400);
-			echo json_encode(["error" => "Invalid input."]);
+			echo json_encode(["error" => "Invalid input.Email: $email, Subject: $subject, Name: $name, Message: $message"]);
 			exit;
 		}
 		
