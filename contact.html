@@ -289,7 +289,7 @@
                 e.preventDefault(); // Prevent default form submission
                 
                 
-				var isFromContact=(formData.subject=="Επικοινωνία" ? true : false)
+				var isFromContact=($('#subject').val()=="Επικοινωνία" ? true : false)
 				var section=(isFromContact ? "sendButton":"newsLetterSection");	
 				
 				// Collect form data
