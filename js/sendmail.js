@@ -24,7 +24,7 @@ $(document).ready(function () {
                     data: formData,
                     dataType: 'json',
                     success: function (response) {
-						console.log(response)
+						
                         if (response.success) {
                             document.getElementById(section).innerHTML ='<p><i class="fa fa-check" aria-hidden="true" style="color:green"></i> Η αποστολή ήταν επιτυχής!</p>';
                         } else {
@@ -52,7 +52,7 @@ $(document).ready(function () {
 					subject: "Newsletter",
 					isFromContact: isFromContact
                 };
-				console.log(formData)
+				
 				document.getElementById(section).innerHTML ='<div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;"></div>';
 				
                 // AJAX request

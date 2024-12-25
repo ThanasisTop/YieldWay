@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Email data for contact form
 		$postData = [
 			'apikey' => $apiKey,
-			'from' => "sakis530@hotmail.com",
+			'from' => "info@yieldway.gr",
 			'fromName' => $name,
-			'to' => "sakis530@hotmail.com",
+			'to' => "info@yieldway.gr",
 			'subject' => $subject,
 			'bodyText' => "Name: $name\nMessage: $message",
 			'bodyHtml' => "<p><strong>Email:</strong> $email</p><p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
@@ -49,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Email data for newsletter
 		$postData = [
 			'apikey' => $apiKey,
-			'from' => "sakis530@hotmail.com",
-			'to' => "sakis530@hotmail.com",
+			'from' => "info@yieldway.gr",
+			'to' => "info@yieldway.gr",
 			'subject' => $subject,
 			'bodyText' => "Email: $email",
 			'bodyHtml' => "<p><strong>Email:</strong> $email</p>",
