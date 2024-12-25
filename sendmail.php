@@ -1,4 +1,9 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php'; // Ensure PHPMailer is installed via Composer
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Input validation
     $name = htmlspecialchars($_POST['name']);
@@ -11,39 +16,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Elastic Email API URL
-    $url = "https://api.elasticemail.com/v2/email/send";
+    // Elastic Email SMTP settings
+    $smtpHost = "smtp.elasticemail.com";
+    $smtpUsername = "info@yieldway.gr"; // Replace with your Elastic Email username (usually your email)
+    $smtpPassword = "0491B2014022EA1A4F9BB66BE7FDFDBECF6A";  // Replace with your Elastic Email API key
+    $smtpPort = 587; // Default SMTP port (alternatives: 2525, 25)
 
-    // API key (secure this in an environment variable)
-    $apiKey = "78546589768CE6389A9D861C5C9F09FD397C1DB96D4003AA5732523CA5C3E3C116D85AB2CCF43D7FE84185145930769F";
+    try {
+        // Create a new PHPMailer instance
+        $mail = new PHPMailer(true);
 
-    // Email data
-    $postData = [
-        'apikey' => $apiKey,
-        'from' => "sakis530@hotmail.com",
-        'fromName' => "Your Name",
-        'to' => "sakis530@hotmail.com",
-        'subject' => "Contact Form Message",
-        'bodyText' => "Name: $name\nMessage: $message",
-        'bodyHtml' => "<p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
-        'isTransactional' => true,
-    ];
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = $smtpHost;
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtpUsername;
+        $mail->Password = $smtpPassword;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use TLS encryption
+        $mail->Port = $smtpPort;
 
-    // Send request to Elastic Email
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // Email content
+        $mail->setFrom('your_email@example.com', 'Your Name'); // Replace with your verified sender email and name
+        $mail->addAddress($email, $name); // Add recipient
+        $mail->isHTML(true); // Enable HTML format
+        $mail->Subject = "Contact Form Message";
+        $mail->Body = "<p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>";
+        $mail->AltBody = "Name: $name\nMessage: $message"; // Plain-text fallback
 
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    if ($httpCode == 200) {
+        // Send email
+        $mail->send();
         echo json_encode(["success" => "Email sent successfully."]);
-    } else {
-        echo json_encode(["error" => "Failed to send email.", "details" => $response]);
+    } catch (Exception $e) {
+        http_response_code(500); // Internal server error
+        echo json_encode(["error" => "Failed to send email.", "details" => $mail->ErrorInfo]);
     }
 } else {
     http_response_code(405); // Method not allowed
