@@ -139,10 +139,10 @@
                     <!-- <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form -->
                         <!-- with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're -->
                         <!-- done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p> -->
-                    <form class="row g-3" onsubmit="submitForm(true); return false;">
+                    <form class="row g-3" action="https://yieldway.gr/sendmail.php" method="POST">
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Όνομα" required>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Όνομα" required>
                                     <label for="name">Όνομα</label>
 									<div class="invalid-feedback">
 										Please provide a valid name.
@@ -151,7 +151,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="mail" placeholder="Email" required>
+                                    <input type="email" class="form-control" name="email" id="mail" placeholder="Email" required>
                                     <label for="mail">Email</label>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Μήνυμα" id="message"
+                                    <textarea class="form-control" placeholder="Μήνυμα" name="message" id="message"
                                         style="height: 100px" required></textarea>
                                     <label for="message">Μήνυμα</label>
                                 </div>
