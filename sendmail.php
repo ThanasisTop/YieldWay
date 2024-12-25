@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $url = "https://api.elasticemail.com/v2/email/send";
 
     // API key (secure this in an environment variable)
-    $apiKey = "0491B2014022EA1A4F9BB66BE7FDFDBECF6A";
+    $apiKey = "78546589768CE6389A9D861C5C9F09FD397C1DB96D4003AA5732523CA5C3E3C116D85AB2CCF43D7FE84185145930769F";
 
     // Email data
     $postData = [
