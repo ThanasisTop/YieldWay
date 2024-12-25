@@ -292,9 +292,13 @@
                 const formData = {
                     name: $('#name').val(),
                     email: $('#mail').val(),
-                    message: $('#message').val()
+                    message: $('#message').val(),
+					subject: $('#subject').val()
                 };
-				console.log(formData,'formData')
+				var isFromContact=(formData.subject=="Επικοινωνία" ? true : false)
+				var section=(isFromContact ? "sendButton":"newsLetterSection");	
+				document.getElementById(section).innerHTML ='<div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;"></div>';
+				
                 // AJAX request
                 $.ajax({
                     url: 'sendmail.php',
@@ -304,14 +308,15 @@
                     success: function (response) {
 						console.log(response)
                         if (response.success) {
-                            $('#responseMessage').html('<p style="color: green;">Email sent successfully!</p>');
+                            document.getElementById(section).innerHTML ='<p><i class="fa fa-check" aria-hidden="true" style="color:green"></i> Η αποστολή ήταν επιτυχής!</p>';
                         } else {
-                            $('#responseMessage').html('<p style="color: red;">Error: ' + response.error + '</p>');
+							console.log(error)
+                            document.getElementById("sendButton").innerHTML ='<p><i class="fa fa-times" aria-hidden="true" style="color:red"></i> Η αποστολή απέτυχε...</p>';
                         }
                     },
                     error: function (error) {
 						console.log(error)
-                        $('#responseMessage').html('<p style="color: red;">An unexpected error occurred. Please try again later.</p>');
+                        document.getElementById("sendButton").innerHTML ='<p><i class="fa fa-times" aria-hidden="true" style="color:red"></i> Η αποστολή απέτυχε...</p>';
                     }
                 });
             });
