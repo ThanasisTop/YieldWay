@@ -2,20 +2,20 @@
 header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-	// Input validation
-    $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
-    $message = trim($_POST['message']);
-	$subject = trim($_POST['subject']);
+	 // Input validation and sanitization
+    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $message = isset($_POST['message']) ? trim($_POST['message']) : '';
+    $subject = isset($_POST['subject']) ? trim($_POST['subject']) : '';
 	$isFromContact = filter_var($email, FILTER_VALIDATE_BOOLEAN); 
 
     // Sanitize and validate inputs
     $name = preg_replace("/[^\w\s\.-]/", "", $name); // Allow alphanumeric, spaces, dots, and hyphens
     $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Validate email
-    $message = htmlspecialchars($message); // Escape HTML entities
-    $message = str_replace(["\r", "\n"], " ", $message); // Remove newlines to prevent injection
-	//$subject = preg_replace("/[^\w\s\.-]/", "", $subject); // Sanitize subject
-
+    $message = htmlspecialchars(strip_tags($message), ENT_QUOTES, 'UTF-8');
+    $subject = htmlspecialchars(strip_tags($subject), ENT_QUOTES, 'UTF-8');
+	
+	
 	$apiKey = getenv('SMTP_API_KEY');
 	
     if (!$apiKey) {
@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Email data for contact form
 		$postData = [
 			'apikey' => $apiKey,
-			'from' => "info@yieldway.gr",
+			'from' => "test@yieldway.gr",
 			'fromName' => $name,
-			'to' => "info@yieldway.gr",
+			'to' => "test@yieldway.gr",
 			'subject' => $subject,
 			'bodyText' => "Name: $name\nMessage: $message",
 			'bodyHtml' => "<p><strong>Email:</strong> $email</p><p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Email data for newsletter
 		$postData = [
 			'apikey' => $apiKey,
-			'from' => "info@yieldway.gr",
-			'to' => "info@yieldway.gr",
+			'from' => "test@yieldway.gr",
+			'to' => "test@yieldway.gr",
 			'subject' => $subject,
 			'bodyText' => "Email: $email",
 			'bodyHtml' => "<p><strong>Email:</strong> $email</p>",
