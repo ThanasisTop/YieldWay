@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	//$subject = preg_replace("/[^\w\s\.-]/", "", $subject); // Sanitize subject
 
 	$apiKey = getenv('SMTP_API_KEY');
+	
     if (!$apiKey) {
         http_response_code(500);
         echo json_encode(["error" => "Server configuration error. API key not set."]);
@@ -33,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Email data for contact form
 		$postData = [
 			'apikey' => $apiKey,
-			'from' => "test@yieldway.gr",
+			'from' => "info@yieldway.gr",
 			'fromName' => $name,
-			'to' => "test@yieldway.gr",
+			'to' => "info@yieldway.gr",
 			'subject' => $subject,
 			'bodyText' => "Name: $name\nMessage: $message",
 			'bodyHtml' => "<p><strong>Email:</strong> $email</p><p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
@@ -53,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Email data for newsletter
 		$postData = [
 			'apikey' => $apiKey,
-			'from' => "test@yieldway.gr",
-			'to' => "test@yieldway.gr",
+			'from' => "info@yieldway.gr",
+			'to' => "info@yieldway.gr",
 			'subject' => $subject,
 			'bodyText' => "Email: $email",
 			'bodyHtml' => "<p><strong>Email:</strong> $email</p>",
