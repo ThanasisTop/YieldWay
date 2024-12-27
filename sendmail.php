@@ -16,8 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = str_replace(["\r", "\n"], " ", $message); // Remove newlines to prevent injection
 	//$subject = preg_replace("/[^\w\s\.-]/", "", $subject); // Sanitize subject
 
-	// API key (secure this in an environment variable)
-    $apiKey = "78546589768CE6389A9D861C5C9F09FD397C1DB96D4003AA5732523CA5C3E3C116D85AB2CCF43D7FE84185145930769F";	
+	$apiKey = getenv('SMTP_API_KEY');
+    if (!$apiKey) {
+        http_response_code(500);
+        echo json_encode(["error" => "Server configuration error. API key not set."]);
+        exit;
+    }	
 		
 	if($isFromContact){
 		if (!$email || empty($name) || empty($message)|| empty($subject)) {
@@ -29,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Email data for contact form
 		$postData = [
 			'apikey' => $apiKey,
-			'from' => "info@yieldway.gr",
+			'from' => "test@yieldway.gr",
 			'fromName' => $name,
-			'to' => "info@yieldway.gr",
+			'to' => "test@yieldway.gr",
 			'subject' => $subject,
 			'bodyText' => "Name: $name\nMessage: $message",
 			'bodyHtml' => "<p><strong>Email:</strong> $email</p><p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
@@ -49,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Email data for newsletter
 		$postData = [
 			'apikey' => $apiKey,
-			'from' => "info@yieldway.gr",
-			'to' => "info@yieldway.gr",
+			'from' => "test@yieldway.gr",
+			'to' => "test@yieldway.gr",
 			'subject' => $subject,
 			'bodyText' => "Email: $email",
 			'bodyHtml' => "<p><strong>Email:</strong> $email</p>",
@@ -71,7 +75,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
-
+	
+	if (!$response || $httpCode >= 400) {
+        http_response_code($httpCode ?: 500);
+        echo json_encode(["success" => false, "error" => "Failed to send email. HTTP Code: $httpCode"]);
+        exit;
+    }
+	
 	$responseData = json_decode($response, true);
 
     if ($responseData['success'] === true) {
