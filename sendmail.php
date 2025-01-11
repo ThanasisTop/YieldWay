@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }	
 		
-	if(true){
+	if($isFromContact){
 		if (!$email || empty($name) || empty($message)|| empty($subject)) {
 			http_response_code(400);
 			echo json_encode(["error" => "Invalid input.Email: $email, Subject: $subject, Name: $name, Message: $message"]);
@@ -90,7 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(["success" => false, "error" => $responseData['error']]);
     }*/
     http_response_code(200);
-	echo json_encode(["success" => true, "postData" => $postData]);
+	echo json_encode([
+    "success" => false, 
+    "debug" => [
+        "postData" => $postData
+    ]
+]);
+exit;
 	exit;
 } else {
     echo json_encode(["success" => false, "error" => "Invalid request method."]);
