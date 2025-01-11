@@ -90,8 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(["success" => false, "error" => $responseData['error']]);
     }*/
     http_response_code(200);
-echo json_encode(["success" => true, "postData" => $postData]);
-exit;
+	echo json_encode(["success" => true, "isFromContact" => $isFromContact]);
+	exit;
 } else {
     echo json_encode(["success" => false, "error" => "Invalid request method."]);
 }
