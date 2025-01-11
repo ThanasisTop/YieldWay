@@ -64,17 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
     // Elastic Email API URL
     $url = "https://api.elasticemail.com/v2/email/send";
-
+    error_log("Sending email with postData: " . json_encode($postData));
     // Send request to Elastic Email
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //$ch = curl_init();
+    //curl_setopt($ch, CURLOPT_URL, $url);
+    //curl_setopt($ch, CURLOPT_POST, true);
+    //curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+    //curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
+    //$response = curl_exec($ch);
+    //$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    //curl_close($ch);
 	
 	if (!$response || $httpCode >= 400) {
         http_response_code($httpCode ?: 500);
