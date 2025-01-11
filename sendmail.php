@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $message = trim($_POST['message']);
 	$subject = trim($_POST['subject']);
+	$mobile = trim($_POST['mobile']);
 	$isFromContact = filter_var($_POST['isFromContact'], FILTER_VALIDATE_BOOLEAN);
 
     // Sanitize and validate inputs
@@ -37,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			'fromName' => $name,
 			'to' => "info@yieldway.gr",
 			'subject' => $subject,
-			'bodyText' => "Name: $name\nMessage: $message",
-			'bodyHtml' => "<p><strong>Email:</strong> $email</p><p><strong>Name:</strong> $name</p><p><strong>Message:</strong> $message</p>",
+			'bodyText' => "Name: $name\nMobile: $mobile\nMessage: $message",
+			'bodyHtml' => "<p><strong>Email:</strong> $email</p><p><strong>Name:</strong> $name</p><p><strong>Mobile:</strong> $mobile</p><p><strong>Message:</strong> $message</p>",
 			'isTransactional' => true,
 		];
 	}
