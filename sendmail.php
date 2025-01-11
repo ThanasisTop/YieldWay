@@ -3,17 +3,17 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 	 // Input validation and sanitization
-    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
-    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-    $message = isset($_POST['message']) ? trim($_POST['message']) : '';
-    $subject = isset($_POST['subject']) ? trim($_POST['subject']) : '';
+     $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $message = trim($_POST['message']);
+	$subject = trim($_POST['subject']);
 	$isFromContact = filter_var($email, FILTER_VALIDATE_BOOLEAN); 
 
     // Sanitize and validate inputs
-    //$name = preg_replace("/[^\w\s\.-]/", "", $name); // Allow alphanumeric, spaces, dots, and hyphens
-    //$email = filter_var($email, FILTER_VALIDATE_EMAIL); // Validate email
-    //$message = htmlspecialchars(strip_tags($message), ENT_QUOTES, 'UTF-8');
-    //$subject = htmlspecialchars(strip_tags($subject), ENT_QUOTES, 'UTF-8');
+    $name = preg_replace("/[^\w\s\.-]/", "", $name); // Allow alphanumeric, spaces, dots, and hyphens
+    $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Validate email
+    $message = htmlspecialchars($message); // Escape HTML entities
+    $message = str_replace(["\r", "\n"], " ", $message); // Remove newlines to prevent injection
 	
 	
 	$apiKey = getenv('SMTP_API_KEY');
