@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }	
 		
-	if($subject=="Επικοινωνία"){
+	if(true){
 		if (!$email || empty($name) || empty($message)|| empty($subject)) {
 			http_response_code(400);
 			echo json_encode(["error" => "Invalid input.Email: $email, Subject: $subject, Name: $name, Message: $message"]);
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code($httpCode ?: 500);
         echo json_encode(["success" => false, "error" => "Failed to send email. HTTP Code: $httpCode"]);
         exit;
-    }*/
+    }
 	
 	$responseData = json_decode($response, true);
 
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(["success" => true]);
     } else {
         echo json_encode(["success" => false, "error" => $responseData['error']]);
-    }
+    }*/
     http_response_code(200);
 	echo json_encode(["success" => true, "postData" => $postData]);
 	exit;
