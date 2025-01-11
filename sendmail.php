@@ -3,16 +3,16 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 	 // Input validation and sanitization
-     //$name = trim($_POST['name']);
+    $name = trim($_POST['name']);
     $email = trim($_POST['email']);
-    //$message = trim($_POST['message']);
+    $message = trim($_POST['message']);
 	$subject = trim($_POST['subject']);
 	$isFromContact = filter_var($email, FILTER_VALIDATE_BOOLEAN); 
 
     // Sanitize and validate inputs
-    $name = htmlspecialchars(trim($_POST['name']), ENT_QUOTES, 'UTF-8'); // Allow alphanumeric, spaces, dots, and hyphens
+    //$name = htmlspecialchars(trim($_POST['name']), ENT_QUOTES, 'UTF-8'); // Allow alphanumeric, spaces, dots, and hyphens
     $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Validate email
-    $message = htmlspecialchars(trim($_POST['message']), ENT_QUOTES, 'UTF-8'); // Escape HTML entities
+    //$message = htmlspecialchars(trim($_POST['message']), ENT_QUOTES, 'UTF-8'); // Escape HTML entities
     	
 	
 	$apiKey = getenv('SMTP_API_KEY');
