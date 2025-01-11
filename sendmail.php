@@ -3,17 +3,17 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 	 // Input validation and sanitization
-    $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
-    $message = trim($_POST['message']);
-	$subject = trim($_POST['subject']);
-	$isFromContact = filter_var($email, FILTER_VALIDATE_BOOLEAN); 
+    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $message = isset($_POST['message']) ? trim($_POST['message']) : '';
+    $subject = isset($_POST['subject']) ? trim($_POST['subject']) : '';
+	$isFromContact = filter_var($_POST['isFromContact'], FILTER_VALIDATE_BOOLEAN);
 
     // Sanitize and validate inputs
-    //$name = htmlspecialchars(trim($_POST['name']), ENT_QUOTES, 'UTF-8'); // Allow alphanumeric, spaces, dots, and hyphens
+    $name = preg_replace("/[^\w\s\.-]/", "", $name); // Allow alphanumeric, spaces, dots, and hyphens
     $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Validate email
-    //$message = htmlspecialchars(trim($_POST['message']), ENT_QUOTES, 'UTF-8'); // Escape HTML entities
-    	
+    $message = htmlspecialchars(strip_tags($message), ENT_QUOTES, 'UTF-8');
+    $subject = htmlspecialchars(strip_tags($subject), ENT_QUOTES, 'UTF-8');
 	
 	$apiKey = getenv('SMTP_API_KEY');
 	
@@ -64,19 +64,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
     // Elastic Email API URL
     $url = "https://api.elasticemail.com/v2/email/send";
-    error_log("Sending email with postData: " . json_encode($postData));
-    // Send request to Elastic Email
-    //$ch = curl_init();
-    //curl_setopt($ch, CURLOPT_URL, $url);
-    //curl_setopt($ch, CURLOPT_POST, true);
-    //curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
-    //curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-    //$response = curl_exec($ch);
-    //$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    //curl_close($ch);
+    // Send request to Elastic Email
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
 	
-	/*if (!$response || $httpCode >= 400) {
+	if (!$response || $httpCode >= 400) {
         http_response_code($httpCode ?: 500);
         echo json_encode(["success" => false, "error" => "Failed to send email. HTTP Code: $httpCode"]);
         exit;
@@ -88,15 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(["success" => true]);
     } else {
         echo json_encode(["success" => false, "error" => $responseData['error']]);
-    }*/
-    http_response_code(200);
-echo json_encode([
-    "success" => false, 
-    "debug" => [
-        "postData" => $postData
-    ]
-]);
-exit;
+    }
 } else {
     echo json_encode(["success" => false, "error" => "Invalid request method."]);
 }
