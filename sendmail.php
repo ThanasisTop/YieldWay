@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $url = "https://api.elasticemail.com/v2/email/send";
 
     // Send request to Elastic Email
-    /*$ch = curl_init();
+    $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
@@ -89,16 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(["success" => true]);
     } else {
         echo json_encode(["success" => false, "error" => $responseData['error']]);
-    }*/
-    http_response_code(200);
-	echo json_encode([
-    "success" => false, 
-    "debug" => [
-        "postData" => $postData
-    ]
-]);
-exit;
-	exit;
+    }
+    
 } else {
     echo json_encode(["success" => false, "error" => "Invalid request method."]);
 }
