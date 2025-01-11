@@ -10,10 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$isFromContact = filter_var($_POST['isFromContact'], FILTER_VALIDATE_BOOLEAN);
 
     // Sanitize and validate inputs
-    /*$name = preg_replace("/[^\w\s\.-]/", "", $name); // Allow alphanumeric, spaces, dots, and hyphens
+    $name = preg_replace("/[^\w\s\.-]/", "", $name); // Allow alphanumeric, spaces, dots, and hyphens
     $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Validate email
     $message = htmlspecialchars(strip_tags($message), ENT_QUOTES, 'UTF-8');
-    $subject = htmlspecialchars(strip_tags($subject), ENT_QUOTES, 'UTF-8');*/
+    $subject = htmlspecialchars(strip_tags($subject), ENT_QUOTES, 'UTF-8');
 	
 	$apiKey = getenv('SMTP_API_KEY');
 	
