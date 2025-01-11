@@ -3,10 +3,10 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 	 // Input validation and sanitization
-    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
-    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-    $message = isset($_POST['message']) ? trim($_POST['message']) : '';
-    $subject = isset($_POST['subject']) ? trim($_POST['subject']) : '';
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $message = trim($_POST['message']);
+	$subject = trim($_POST['subject']);
 	$isFromContact = filter_var($_POST['isFromContact'], FILTER_VALIDATE_BOOLEAN);
 
     // Sanitize and validate inputs
