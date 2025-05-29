@@ -16,6 +16,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = htmlspecialchars(strip_tags($message), ENT_QUOTES, 'UTF-8');
     $subject = htmlspecialchars(strip_tags($subject), ENT_QUOTES, 'UTF-8');
 	
+	$secret = getenv('CAPTCHA_SECRET_KEY'); // or use: $secret = 'YOUR_SECRET_KEY';
+	$response = $_POST['g-recaptcha-response'];
+	
+	if (empty($response)) {
+	    http_response_code(403);
+	    echo json_encode(["error" => "reCAPTCHA was not completed."]);
+	    exit;
+	}
+	
+	// Verify with Google
+	$verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
+	$captcha_success = json_decode($verify);
+	
+	// Validate response
+	if (!$captcha_success->success) {
+	    http_response_code(403);
+	    echo json_encode(["error" => "reCAPTCHA validation failed."]);
+	    exit;
+	}
+	
 	$apiKey = getenv('SMTP_API_KEY');
 	
     if (!$apiKey) {

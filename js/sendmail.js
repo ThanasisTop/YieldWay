@@ -8,7 +8,6 @@ $(document).ready(function () {
 
                 // 🔑 Get reCAPTCHA response
                 const captchaResponse = grecaptcha.getResponse();
-                console.log(captchaResponse)
 
                 if (!captchaResponse) {
                     alert("Please complete the reCAPTCHA.");
