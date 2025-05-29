@@ -5,6 +5,15 @@ $(document).ready(function () {
                 
 				var isFromContact= true;
 				var section=(isFromContact ? "sendButton":"newsLetterSection");	
+
+                // 🔑 Get reCAPTCHA response
+                const captchaResponse = grecaptcha.getResponse();
+                console,log(captchaResponse)
+
+                if (!captchaResponse) {
+                    alert("Please complete the reCAPTCHA.");
+                    return;
+                }
 				
 				// Collect form data
                 const formData = {
@@ -13,7 +22,8 @@ $(document).ready(function () {
                     message: $('#message').val(),
 					subject: $('#subject').val(),
                     mobile: $('#mobile').val(),
-					isFromContact: isFromContact
+					isFromContact: isFromContact,
+                    'g-recaptcha-response': captchaResponse 
                 };
 				console.log(formData)
 				document.getElementById(section).innerHTML ='<div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;"></div>';
@@ -51,7 +61,8 @@ $(document).ready(function () {
                 const formData = {
                     email: $('#newsLetterMail').val(),
 					subject: "Newsletter",
-					isFromContact: isFromContact
+					isFromContact: isFromContact,
+                    'g-recaptcha-response': captchaResponse 
                 };
 				
 				document.getElementById(section).innerHTML ='<div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;"></div>';
