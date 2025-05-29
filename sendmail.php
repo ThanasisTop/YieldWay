@@ -87,29 +87,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $url = "https://api.elasticemail.com/v2/email/send";
 
     // Send request to Elastic Email
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //$ch = curl_init();
+    //curl_setopt($ch, CURLOPT_URL, $url);
+    //curl_setopt($ch, CURLOPT_POST, true);
+    //curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+    //curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-	
-	if (!$response || $httpCode >= 400) {
-        http_response_code($httpCode ?: 500);
-        echo json_encode(["success" => false, "error" => "Failed to send email. HTTP Code: $httpCode"]);
-        exit;
-    }
-	
-	$responseData = json_decode($response, true);
+    //$response = curl_exec($ch);
+    //$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    //curl_close($ch);
 
-    if ($responseData['success'] === true) {
-        echo json_encode(["success" => true]);
+    if (mail($postData['to'], $postData['subject'], $postData['bodyHtml'], $headers)) {
+        echo "Message sent successfully!";
     } else {
-        echo json_encode(["success" => false, "error" => $responseData['error']]);
+        echo "Failed to send message.";
     }
+	
+	//if (!$response || $httpCode >= 400) {
+        //http_response_code($httpCode ?: 500);
+        //echo json_encode(["success" => false, "error" => "Failed to send email. HTTP Code: $httpCode"]);
+        //exit;
+    //}
+	
+	//$responseData = json_decode($response, true);
+
+    //if ($responseData['success'] === true) {
+        //echo json_encode(["success" => true]);
+    //} else {
+        //echo json_encode(["success" => false, "error" => $responseData['error']]);
+    //}
 
 } else {
     echo json_encode(["success" => false, "error" => "Invalid request method."]);
