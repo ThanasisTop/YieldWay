@@ -98,9 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //curl_close($ch);
 
     if (mail($postData['to'], $postData['subject'], $postData['bodyHtml'], $headers)) {
-        echo "Message sent successfully!";
+        echo json_encode(["success" => true]);
     } else {
-        echo "Failed to send message.";
+        echo json_encode(["success" => false, "error" => "Failed to send email"]);
     }
 	
 	//if (!$response || $httpCode >= 400) {
