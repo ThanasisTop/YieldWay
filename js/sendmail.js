@@ -33,8 +33,7 @@ $(document).ready(function () {
                     data: formData,
                     dataType: 'json',
                     success: function (response) {
-						console.log(response)
-                        if (response.success) {
+                        if (response.responseText=="Message sent successfully!") {
                             document.getElementById(section).innerHTML ='<p><i class="fa fa-check" aria-hidden="true" style="color:green"></i> Η αποστολή ήταν επιτυχής!</p>';
                         } else {
 							console.log(response)
@@ -72,8 +71,7 @@ $(document).ready(function () {
                     data: formData,
                     dataType: 'json',
                     success: function (response) {
-						console.log(response)
-                        if (response.success) {
+                        if (response.responseText=="Message sent successfully!") {
                             document.getElementById(section).innerHTML ='<p><i class="fa fa-check" aria-hidden="true" style="color:green"></i> Η αποστολή ήταν επιτυχής!</p>';
                         } else {
 							console.log(response)
