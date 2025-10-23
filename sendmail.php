@@ -36,13 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	    exit;
 	}
 	
-	$apiKey = getenv('SMTP_API_KEY');
+	//$apiKey = getenv('SMTP_API_KEY');
 	
-    if (!$apiKey) {
-        http_response_code(500);
-        echo json_encode(["error" => "Server configuration error. API key not set."]);
-        exit;
-    }	
+    //if (!$apiKey) {
+        //http_response_code(500);
+        //echo json_encode(["error" => "Server configuration error. API key not set."]);
+        //exit;
+    //}	
 		
 	if($isFromContact){
 		if (!$email || empty($name) || empty($message)|| empty($subject)) {
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 		// Email data for contact form
 		$postData = [
-			'apikey' => $apiKey,
+			//'apikey' => $apiKey,
 			'from' => "info@yieldway.gr",
 			'fromName' => $name,
 			'to' => "info@yieldway.gr",
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 	
     // Elastic Email API URL
-    $url = "https://api.elasticemail.com/v2/email/send";
+    //$url = "https://api.elasticemail.com/v2/email/send";
 
     // Send request to Elastic Email
     //$ch = curl_init();
